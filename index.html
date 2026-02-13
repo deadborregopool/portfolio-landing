@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luis Fernando | Portfolio Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --bg: #18181b; /* zinc muy oscuro (user requested 18181b) */
+            --body-bg: #0f1720;
+            --text: #d4d4d8; /* gris perla */
+            --accent: #2dd4bf; /* teal / turquesa menta (user) */
+            --accent-2: #14b8a6; /* teal oscuro para gradiente */
+            --muted: #94a3b8;
+            --shadow: rgba(2,6,23,0.6);
+               --surface-2: #0b0f12; /* superficie secundaria para secciones alternadas */
+            --surface: #0f1720; /* card / section surface */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Botón principal sólido (teal-600) con shimmer */
+        .btn-primary{background:#0d9488; /* tailwind teal-600 */ box-shadow:0 10px 30px rgba(13,148,136,0.08);color:#0f1720;position:relative;overflow:hidden}
+        .btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.18),rgba(255,255,255,0.06));transform:translateX(-110%);transition:transform .9s ease}
+        .btn-primary:hover::after{transform:translateX(110%)}
+        .btn-primary:hover{transform:translateY(-3px)}
+        .btn-outline{border:1px solid rgba(45,212,191,0.3);color:var(--accent);background:transparent}
+        .btn-outline:hover{background:rgba(45,212,191,0.04)}
+        /* Tarjetas de proyecto */
+        .card-hover{transition:transform .35s cubic-bezier(.22,.9,.35,1),box-shadow .35s,border-color .35s;border:1px solid rgba(255,255,255,0.03)}
+        .card-hover:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 24px 48px var(--shadow);border-color:rgba(45,212,191,0.08)}
+        /* Media hover/zoom inside project cards */
+        .project-item .media-img{overflow:hidden}
+        .project-item .media-img img{transition:transform .45s ease, filter .3s ease}
+        .project-item:hover .media-img img{transform:scale(1.06);filter:brightness(.96)}
+        .project-item .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+        .project-item .play-overlay .btn-play{pointer-events:auto}
+        /* Entrada escalonada */
+        .stagger-1{animation:fadeIn .6s ease forwards;opacity:0;animation-delay:.05s}
+        .stagger-2{animation:fadeIn .6s ease forwards;opacity:0;animation-delay:.12s}
+        .stagger-3{animation:fadeIn .6s ease forwards;opacity:0;animation-delay:.18s}
+        .fade-in {
+            animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .slide-up {
+            animation: slideUp 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .parallax {
+            background-attachment: fixed;
+        }
+        .skill-bar {
+            animation: fillBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            transform-origin: left;
+        }
+        @keyframes fillBar {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+        .stat-counter {
+            animation: countUp 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes countUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .float-up {
+            animation: floatUp 3s ease-in-out infinite;
+        }
+        @keyframes floatUp {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .glow {
+            box-shadow: 0 0 20px rgba(45,212,191,0.18);
+        }
+        /* estado activo para filtros */
+        .filter-btn{background:rgba(45,212,191,0.1);color:#ffffff;border:1px solid var(--accent);transition:all .3s ease}
+        .filter-btn:hover{background:rgba(45,212,191,0.2)}
+        .filter-active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#ffffff;font-weight:600;border:none}
+        /* Modal de Habilidades */
+        #skillsModal1, #skillsModal2{display:none !important;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-50;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:2rem;padding-top:120px;padding-bottom:120px;overflow:hidden}
+        #skillsModal1[style*="display: flex"], #skillsModal2[style*="display: flex"]{display:flex !important}
+        .skills-modal-content{background:linear-gradient(135deg,var(--surface) 0%,var(--bg) 100%);border:2px solid var(--accent);border-radius:2rem;max-width:900px;width:100%;max-height:70vh;overflow-y:scroll;overflow-x:hidden;padding:2.5rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.9),0 0 40px rgba(45,212,191,0.2);margin:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .skills-modal-content::-webkit-scrollbar{display:none}
+        .skills-modal-content{-webkit-scrollbar-width:none}
+        .skills-modal-close{position:absolute;top:1.5rem;right:1.5rem;background:var(--accent);border:none;color:var(--bg);width:2.5rem;height:2.5rem;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;font-size:1rem;z-index:10;font-weight:bold}
+        .skills-modal-close:hover{background:var(--accent-2);transform:scale(1.1)}
+        nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(2, 12, 20, 0.95);
+            border-bottom: 1px solid rgba(45,212,191,0.04);
+            box-shadow: 0 3px 18px rgba(2,6,23,0.6);
+        }
+        @media (max-width: 768px){
+            .skills-modal-content{
+                padding: 1.5rem;
+                max-height: 80vh;
+                border-radius: 1.5rem;
+            }
+        }
+        /* Hero overlay to sit above the canvas but below content */
+        #inicio .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.20) 0%, rgba(2,6,23,0.12) 40%, rgba(2,6,23,0.22) 100%);pointer-events:none;z-index:0}
+        /* Ensure header content is above the overlay */
+        #inicio > *:not(canvas):not(.hero-overlay){position:relative;z-index:1}
+    </style>
+</head>
+<body class="bg-zinc-900 text-[#d4d4d8] font-sans antialiased">
+
+
+    <!-- Navegación Sticky -->
+    <nav class="fixed top-0 w-full z-50 sticky">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <div class="text-2xl font-bold text-teal-400">Luis Fernando</div>
+                <div class="hidden md:flex gap-8">
+                    <a href="#inicio" class="hover:text-teal-400 transition">Inicio</a>
+                    <a href="#sobre" class="hover:text-teal-400 transition">Sobre</a>
+                    <a href="#servicios" class="hover:text-teal-400 transition">Servicios</a>
+                    <a href="#habilidades" class="hover:text-teal-400 transition">Habilidades</a>
+                    <a href="#proyectos" class="hover:text-teal-400 transition">Proyectos</a>
+                    <a href="#contacto" class="hover:text-teal-400 transition">Contacto</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="mobileMenuBtn" class="md:hidden text-[var(--muted)] hover:text-teal-400 transition">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <div class="flex gap-4">
+                    <a href="https://github.com/deadborregopool?tab=repositories" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/luis-fernando-fabrizzio-gutierrez-sanchez-09727b174/" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Menú móvil desplegable -->
+        <div id="mobileMenu" class="md:hidden bg-[var(--surface)] border-t border-zinc-800 shadow-lg hidden">
+            <div class="max-w-6xl mx-auto px-4 py-3 space-y-2">
+                <a href="#inicio" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Inicio</a>
+                <a href="#sobre" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Sobre</a>
+                <a href="#servicios" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Servicios</a>
+                <a href="#habilidades" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Habilidades</a>
+                <a href="#proyectos" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Proyectos</a>
+                <a href="#contacto" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Principal con Parallax -->
+    <header id="inicio" class="min-h-[100vh] flex flex-col justify-center items-center text-center px-4 pt-20 parallax" style="background: transparent;">
+        <canvas id="neuronal-bg" class="fixed top-0 left-0 w-full h-full bg-slate-900" style="z-index:-1"></canvas>
+        <div class="hero-overlay"></div>
+        <div class="mb-8 slide-up float-up">
+            <div class="w-32 h-32 rounded-full border-4" style="border-color:var(--accent-2); background: linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 10px 30px rgba(0,0,0,0.6); display:flex;align-items:center;justify-content:center;margin:0 auto;">
+                <div class="text-5xl" style="color:#071018">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+            </div>
+        </div>
+        <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 fade-in">
+            Hola, soy <span class="text-teal-400 animate-bounce">Luis Fernando</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-[var(--muted)] mb-2 fade-in">Estudiante de Desarrollo Web · Editor de Video y Fotografía</p>
+        <p class="text-lg text-[var(--muted)] mb-10 fade-in">He realizado prácticas en desarrollo web y trabajo en producción multimedia</p>
+        <div class="flex flex-col md:flex-row gap-4 fade-in">
+                <a href="#proyectos" class="btn-primary font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105">
+                Ver Mis Trabajos
+            </a>
+            <a href="#contacto" class="btn-outline font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105">
+                Iniciar Proyecto
+            </a>
+        </div>
+    </header>
+
+    <!-- Estadísticas: removidas para un enfoque más profesional -->
+
+    <!-- Sección Sobre Mí -->
+    <section id="sobre" class="max-w-5xl mx-auto px-4 py-16 fade-in">
+        <div class="bg-[var(--surface)] rounded-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-6 items-center card-hover">
+            <div class="md:col-span-1 flex flex-col items-center text-center">
+                <div class="w-36 h-36 rounded-full bg-gradient-to-br from-[var(--accent)] to-[var(--accent-2)] flex items-center justify-center text-4xl text-[#071018] shadow-lg">
+                    <i class="fas fa-user"></i>
+                </div>
+                <a href="#contacto" class="mt-4 btn-outline px-4 py-2 rounded-full">Trabajemos</a>
+            </div>
+            <div class="md:col-span-2">
+                <h2 class="text-3xl font-bold text-white mb-4">Sobre mí</h2>
+                <p class="text-[var(--muted)] mb-4">Soy Luis Fernando Fabrizzio Gutierrez Sanchez, estudiante de desarrollo web que ha realizado prácticas profesionales en proyectos frontend. También trabajo en edición de video y fotografía, combinando habilidades técnicas y creativas para entregar productos digitales completos.</p>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[var(--muted)] mb-6">
+                    <li>✓ Prácticas en desarrollo web (frontend)</li>
+                    <li>✓ Edición de video y fotografía</li>
+                    <li>✓ Frontend moderno: React, JavaScript, Tailwind</li>
+                    <li>✓ Diseño responsivo y accesibilidad</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Habilidades -->
+    <section id="habilidades" class="bg-[var(--surface)] py-20 fade-in">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-white mb-12 text-center">Habilidades Técnicas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="stagger-1 cursor-pointer" onclick="document.getElementById('skillsModal1').style.display='flex'">
+                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2 hover:text-teal-400 transition">
+                        <span class="text-teal-400"><i class="fas fa-code"></i></span> Frontend Development
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>HTML / CSS</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>React / Vue.js</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 85%; animation-delay: 0.1s"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>JavaScript</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 90%; animation-delay: 0.2s"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-teal-400 mt-4 flex items-center gap-2"><i class="fas fa-arrow-right"></i> Click para ver más detalles</p>
+                </div>
+                <div class="stagger-2 cursor-pointer" onclick="document.getElementById('skillsModal2').style.display='flex'">
+                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2 hover:text-teal-400 transition">
+                        <span class="text-teal-400"><i class="fas fa-brush"></i></span> Diseño & Creatividad
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Figma / UI/UX</span>
+                                <span>92%</span>
+                            </div>
+                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 92%; animation-delay: 0.4s"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Edición de Video</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 85%; animation-delay: 0.5s"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm text-teal-400 mt-4 flex items-center gap-2"><i class="fas fa-arrow-right"></i> Click para ver más detalles</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Servicios (fondo alternado para contraste) -->
+    <section id="servicios" class="max-w-6xl mx-auto px-4 py-20 fade-in bg-[var(--surface-2)] border-t border-zinc-800">
+        <h2 class="text-4xl font-bold text-white mb-12 text-center">Servicios</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
+                    <div class="text-4xl mb-4 text-teal-400"><i class="fas fa-globe"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">Diseño Web</h3>
+                <p class="text-[var(--muted)]">Sitios web modernos, responsivos y optimizados para conversión</p>
+            </div>
+            <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
+                <div class="text-4xl mb-4 text-[var(--accent)]"><i class="fas fa-palette"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">Diseño Gráfico</h3>
+                <p class="text-[var(--muted)]">Banners, logos y contenido visual para redes sociales</p>
+            </div>
+            <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
+                <div class="text-4xl mb-4 text-[var(--accent-2)]"><i class="fas fa-video"></i></div>
+                <h3 class="text-xl font-bold text-white mb-3">Contenido Multimedia</h3>
+                <p class="text-[var(--muted)]">Videos, animaciones y edición profesional de contenido</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Proyectos (mejorada, fondo alternado) -->
+    <section id="proyectos" class="max-w-6xl mx-auto px-4 py-20 fade-in bg-[var(--surface)] border-t border-zinc-800">
+        <h2 class="text-4xl font-bold text-white mb-6 text-center">Proyectos Destacados</h2>
+        <p class="text-center text-[var(--muted)] mb-8">Explora una selección de trabajos organizados por categoría. Haz click en "Ver caso" para ver detalles.</p>
+
+        <div class="flex justify-center gap-3 mb-8">
+            <button data-filter="all" class="filter-btn px-4 py-2 rounded-full filter-active">Todo</button>
+            <button data-filter="web" class="filter-btn px-4 py-2 rounded-full border border-transparent">Páginas Web</button>
+            <button data-filter="img" class="filter-btn px-4 py-2 rounded-full border border-transparent">Imágenes</button>
+        </div>
+
+        <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Card: Web -->
+            <article data-type="web" data-media="./Multimedia/Web1.png" data-title="E-Commerce Tech" data-desc="Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión." data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="./Multimedia/Web1.png" alt="Proyecto Web" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                    <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">E-Commerce Tech</h3>
+                        <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Vercel</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="E-Commerce Tech" data-desc="Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión." data-media="./Multimedia/Web1.png" data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/">Ver caso</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card: Sistema de Inventario -->
+            <article data-type="web" data-media="./Multimedia/Web2.png" data-title="Sistema de Inventario" data-desc="Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock." data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="./Multimedia/Web2.png" alt="Sistema de Inventario" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                    <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">Sistema de Inventario</h3>
+                        <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Node.js</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="Sistema de Inventario" data-desc="Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock." data-media="./Multimedia/Web2.png" data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/">Ver caso</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card: Web Radio -->
+            <article data-type="web" data-media="./Multimedia/Web3.png" data-title="Web Radio" data-desc="Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly." data-link="https://frontend-radio-strapi.vercel.app/calendario" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="./Multimedia/Web3.png" alt="Web Radio" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </div>
+                    <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">Web Radio</h3>
+                        <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
+                            <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Strapi</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <a href="https://frontend-radio-strapi.vercel.app/calendario" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="Web Radio" data-desc="Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly." data-media="./Multimedia/Web3.png" data-link="https://frontend-radio-strapi.vercel.app/calendario">Ver caso</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card: Video -->
+            <article data-type="video" data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Campaña Promo" data-desc="Video promocional para producto — edición y animación." class="project-item project-video bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="https://placehold.co/800x500/071029/FFF?text=Video+Promo" alt="Video" class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center play-overlay">
+                        <div class="bg-black/50 p-3 rounded-full btn-play">
+                            <i class="fas fa-play text-2xl text-white"></i>
+                        </div>
+                    </div>
+                </div>
+                    <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">Campaña Promo</h3>
+                            <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Video</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Producción de video promocional con edición profesional y animaciones atractivas para maximizar engagement.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-zinc-700 rounded">Premiere</span>
+                            <span class="px-2 py-1 bg-zinc-700 rounded">After Effects</span>
+                        </div>
+                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="video" data-title="Campaña Promo" data-desc="Video promocional para producto — edición y animación." data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-link="#">Ver caso</button>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Card: Image Gallery (Publicidad) -->
+            <article data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseño de banners y materiales publicitarios para múltiples campañas." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="./Multimedia/Publicidad1.png" alt="Galería Publicidad" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">Campañas Publicitarias</h3>
+                        <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[var(--surface)]">Imagen</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Colección de banners y materiales publicitarios diseñados para impactar en redes sociales y captar la atención del público.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-zinc-700 rounded">Photoshop</span>
+                            <span class="px-2 py-1 bg-zinc-700 rounded">Figma</span>
+                        </div>
+                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseño de banners y materiales publicitarios para múltiples campañas.">Ver galería</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card: Logo (Galería) -->
+            <article data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Diseño de identidad visual y logotipos profesionales." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+                <div class="relative media-img">
+                    <img src="./Multimedia/Logo1.png" alt="Logo Design" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-6 flex flex-col gap-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold">Logo Design</h3>
+                        <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[var(--surface)]">Logo</div>
+                    </div>
+                    <p class="text-[#94a3b8] text-sm">Identidad visual profesional con logotipos modernos que representan la esencia de la marca.</p>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                            <span class="px-2 py-1 bg-zinc-700 rounded">Illustrator</span>
+                            <span class="px-2 py-1 bg-zinc-700 rounded">Figma</span>
+                        </div>
+                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Diseño de identidad visual y logotipos profesionales.">Ver galería</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- más cards: duplica y modifica según necesites -->
+        </div>
+
+        <!-- Modal / Lightbox para mostrar detalles del proyecto -->
+        <div id="projectModal" class="fixed inset-0 bg-black/60 hidden z-50 items-center justify-center">
+            <div class="rounded-xl w-[90%] max-w-5xl mx-auto overflow-hidden shadow-2xl" style="background:var(--surface)">
+                <div class="flex flex-col md:flex-row">
+                    <div id="modalMedia" class="md:w-1/2 bg-black flex items-center justify-center p-4 relative">
+                        <!-- media dinámico -->
+                    </div>
+                    <div class="md:w-1/2 p-6">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
+                                <p id="modalTags" class="text-sm text-[var(--muted)] mb-4"></p>
+                            </div>
+                            <button id="modalClose" class="text-[var(--muted)] hover:text-white">✕</button>
+                        </div>
+                        <p id="modalDesc" class="text-[var(--muted)] mb-4"></p>
+                        <!-- Controles de galería (mostrar solo para múltiples imágenes) -->
+                        <div id="galleryControls" class="hidden mb-4 flex items-center justify-between bg-zinc-800 p-3 rounded">
+                            <button id="prevImg" class="text-teal-400 hover:text-teal-300 transition"><i class="fas fa-chevron-left"></i></button>
+                            <span id="imgCounter" class="text-sm text-zinc-400"></span>
+                            <button id="nextImg" class="text-teal-400 hover:text-teal-300 transition"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="mt-4">
+                            <a id="modalLink" href="#" target="_blank" class="inline-block btn-primary px-4 py-2 rounded">Ver web en vivo →</a>
+                        </div>
+                        <div class="mt-6 text-sm text-[var(--muted)]">✓ Proyecto completado exitosamente con resultados medibles y satisfacción del cliente.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Habilidades -->
+    <!-- Sección de Habilidades localizada previamente, ahora movida y estilizada (eliminada duplicado) -->
+
+    <section id="contacto" class="max-w-6xl mx-auto px-4 py-20 fade-in">
+        <h2 class="text-4xl font-bold text-white mb-12 text-center">Formulario de Contacto</h2>
+        <div class="max-w-2xl mx-auto bg-[var(--surface)] p-8 rounded-xl">
+            <form id="contactForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[#d4d4d8] mb-2 font-semibold">Nombre</label>
+                        <input type="text" required class="w-full px-4 py-3 bg-zinc-700 border border-zinc-600 rounded-lg text-white placeholder-slate-500 focus:border-[var(--accent)] focus:outline-none transition" placeholder="Tu nombre">
+                    </div>
+                    <div>
+                        <label class="block text-[#d4d4d8] mb-2 font-semibold">Email</label>
+                        <input type="email" required class="w-full px-4 py-3 bg-zinc-700 border border-zinc-600 rounded-lg text-white placeholder-slate-500 focus:border-[var(--accent)] focus:outline-none transition" placeholder="tu@email.com">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[#d4d4d8] mb-2 font-semibold">Asunto</label>
+                    <input type="text" required class="w-full px-4 py-3 bg-zinc-700 border border-zinc-600 rounded-lg text-white placeholder-slate-500 focus:border-[var(--accent)] focus:outline-none transition" placeholder="¿En qué te puedo ayudar?">
+                </div>
+                <div>
+                    <label class="block text-[#d4d4d8] mb-2 font-semibold">Mensaje</label>
+                    <textarea required rows="6" class="w-full px-4 py-3 bg-zinc-700 border border-zinc-600 rounded-lg text-white placeholder-slate-500 focus:border-[var(--accent)] focus:outline-none transition" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+                </div>
+                <button type="submit" class="w-full btn-primary text-white font-bold py-3 rounded-lg transition-all duration-300 shadow-lg hover:scale-105">
+                    Enviar Mensaje
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Botón Flotante de Contacto (WhatsApp por defecto) -->
+    <a id="waBtn" href="https://wa.me/1234567890?text=Hola%20Luis,%20me%20interesa%20tu%20servicio" target="_blank" class="fixed bottom-8 right-8 rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 z-40" style="background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:var(--text); box-shadow:0 8px 24px rgba(0,0,0,0.5)">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-[var(--surface)] py-12 border-t border-zinc-700">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold text-teal-400 mb-4">Luis Fernando</h3>
+                    <p class="text-[var(--muted)]">Diseñador Web y Creador de Contenido Digital apasionado por crear experiencias excepcionales.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Enlaces Rápidos</h4>
+                    <div class="space-y-2">
+                        <a href="#inicio" class="text-[var(--muted)] hover:text-teal-400 transition">Inicio</a><br>
+                        <a href="#servicios" class="text-[var(--muted)] hover:text-teal-400 transition">Servicios</a><br>
+                        <a href="#proyectos" class="text-[var(--muted)] hover:text-teal-400 transition">Proyectos</a><br>
+                        <a href="#contacto" class="text-[var(--muted)] hover:text-teal-400 transition">Contacto</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Sígueme</h4>
+                    <div class="flex gap-4">
+                        <a href="https://github.com/deadborregopool?tab=repositories" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition text-2xl">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/luis-fernando-fabrizzio-gutierrez-sanchez-09727b174/" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition text-2xl">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://instagram.com/tuusuario" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition text-2xl">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com/tuusuario" target="_blank" class="text-[var(--muted)] hover:text-teal-400 transition text-2xl">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-zinc-700 pt-8 text-center text-[var(--muted)]">
+                <p>&copy; 2026 Luis Fernando. Todos los derechos reservados. Creado para dominar el mundo digital.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll behavior está en CSS
+        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! Me pondré en contacto pronto.');
+            this.reset();
+        });
+
+        // Menú móvil
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn?.addEventListener('click', () => {
+            mobileMenu?.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu?.classList.add('hidden');
+            });
+        });
+
+        // Animación de barras de habilidades cuando se scrollea a la sección
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fillBar 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+                }
+            });
+        });
+        document.querySelectorAll('.skill-bar').forEach(el => observer.observe(el));
+
+        // Projects filter
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterButtons.forEach(b => b.classList.remove('filter-active'));
+                btn.classList.add('filter-active');
+
+                // show/hide with staggered reveal
+                projectItems.forEach(item => {
+                    item.classList.add('hidden');
+                    item.classList.remove('fade-in');
+                    item.style.animationDelay = '';
+                    if (filter === 'all') item.classList.remove('hidden');
+                    if (filter === 'web' && item.classList.contains('project-web')) item.classList.remove('hidden');
+                    if (filter === 'video' && item.classList.contains('project-video')) item.classList.remove('hidden');
+                    if (filter === 'img' && item.classList.contains('project-img')) item.classList.remove('hidden');
+                    if (filter === 'ux' && item.classList.contains('project-ux')) item.classList.remove('hidden');
+                });
+
+                // apply staggered animation to visible items
+                const visible = Array.from(projectItems).filter(i => !i.classList.contains('hidden'));
+                visible.forEach((it, idx) => {
+                    it.classList.add('fade-in');
+                    it.style.animationDelay = (idx * 120) + 'ms';
+                });
+            });
+        });
+
+        // Activate default filter (todo)
+        document.querySelectorAll('.filter-btn')[0]?.click();
+
+        // apply initial text color classes replacement (ensure active styles)
+        document.querySelectorAll('.filter-btn').forEach((b,i)=>{ if(i===0) b.classList.add('filter-active') });
+
+        // Modal / Lightbox
+        const modal = document.getElementById('projectModal');
+        const modalMedia = document.getElementById('modalMedia');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalLink = document.getElementById('modalLink');
+        const modalTags = document.getElementById('modalTags');
+        const modalClose = document.getElementById('modalClose');
+        const galleryControls = document.getElementById('galleryControls');
+        const prevBtn = document.getElementById('prevImg');
+        const nextBtn = document.getElementById('nextImg');
+        const imgCounter = document.getElementById('imgCounter');
+
+        let currentGallery = [];
+        let currentImageIndex = 0;
+
+        function displayImage(index) {
+            modalMedia.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = currentGallery[index];
+            img.alt = modalTitle.textContent;
+            img.className = 'w-full h-full object-contain rounded';
+            modalMedia.appendChild(img);
+            currentImageIndex = index;
+            imgCounter.textContent = `${index + 1} / ${currentGallery.length}`;
+        }
+
+        function openModal(data) {
+            // limpiar
+            modalMedia.innerHTML = '';
+            modalTitle.textContent = data.title || '';
+            modalDesc.textContent = data.desc || '';
+            modalLink.href = data.link || '#';
+            modalTags.textContent = (data.tags || '').toString();
+
+            // Manejo de galería
+            if (Array.isArray(data.media)) {
+                // Es una galería de múltiples imágenes
+                currentGallery = data.media;
+                displayImage(0);
+                galleryControls.classList.remove('hidden');
+                modalLink.parentElement.classList.add('hidden'); // Ocultar botón de link para galerías
+            } else if (data.type === 'video') {
+                galleryControls.classList.add('hidden');
+                modalLink.parentElement.classList.add('hidden'); // Ocultar para videos también
+                const iframe = document.createElement('iframe');
+                iframe.src = data.media;
+                iframe.width = '100%';
+                iframe.height = '320';
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.className = 'rounded';
+                modalMedia.appendChild(iframe);
+            } else if (data.type === 'web') {
+                galleryControls.classList.add('hidden');
+                modalLink.parentElement.classList.remove('hidden'); // Mostrar para web
+                const img = document.createElement('img');
+                img.src = data.media;
+                img.alt = data.title || 'Proyecto web';
+                img.className = 'w-full h-full object-cover rounded';
+                modalMedia.appendChild(img);
+            } else {
+                galleryControls.classList.add('hidden');
+                modalLink.parentElement.classList.add('hidden'); // Ocultar para imágenes simples
+                const img = document.createElement('img');
+                img.src = data.media;
+                img.alt = data.title || 'Proyecto';
+                img.className = 'w-full h-full object-cover rounded';
+                modalMedia.appendChild(img);
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+            modalMedia.innerHTML = '';
+        }
+
+        document.querySelectorAll('.view-case').forEach(btn => {
+            btn.addEventListener('click', () => {
+                let media = btn.getAttribute('data-media');
+                const gallery = btn.getAttribute('data-gallery');
+                
+                // Si tiene data-gallery, parsear como JSON array
+                if (gallery) {
+                    media = JSON.parse(gallery);
+                }
+
+                const data = {
+                    type: btn.getAttribute('data-type'),
+                    title: btn.getAttribute('data-title'),
+                    desc: btn.getAttribute('data-desc'),
+                    media: media,
+                    link: btn.getAttribute('data-link') || '#',
+                    tags: btn.getAttribute('data-tags') || ''
+                };
+                openModal(data);
+            });
+        });
+
+        // Open modal when clicking on the media thumbnail or play overlay
+        document.querySelectorAll('.project-item').forEach(item => {
+            const thumb = item.querySelector('.media-img');
+            if (!thumb) return;
+            thumb.addEventListener('click', (e) => {
+                // prefer data stored on article, fallback to button
+                let media = item.getAttribute('data-media');
+                const gallery = item.getAttribute('data-gallery');
+                
+                // Si tiene data-gallery, parsear como JSON array
+                if (gallery) {
+                    media = JSON.parse(gallery);
+                }
+
+                const data = {
+                    type: item.getAttribute('data-type') || item.querySelector('.view-case')?.getAttribute('data-type'),
+                    title: item.getAttribute('data-title') || item.querySelector('.view-case')?.getAttribute('data-title'),
+                    desc: item.getAttribute('data-desc') || item.querySelector('.view-case')?.getAttribute('data-desc'),
+                    media: media || item.querySelector('.view-case')?.getAttribute('data-media'),
+                    link: item.getAttribute('data-link') || item.querySelector('.view-case')?.getAttribute('data-link') || '#'
+                };
+                openModal(data);
+            });
+        });
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+        // Gallery navigation
+        prevBtn.addEventListener('click', () => {
+            let newIndex = currentImageIndex - 1;
+            if (newIndex < 0) newIndex = currentGallery.length - 1;
+            displayImage(newIndex);
+        });
+        nextBtn.addEventListener('click', () => {
+            let newIndex = currentImageIndex + 1;
+            if (newIndex >= currentGallery.length) newIndex = 0;
+            displayImage(newIndex);
+        });
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!modal.classList.contains('hidden') && currentGallery.length > 0) {
+                if (e.key === 'ArrowLeft') prevBtn.click();
+                if (e.key === 'ArrowRight') nextBtn.click();
+            }
+        });
+
+        // Skills Modal
+        const skillsModal = document.getElementById('skillsModal');
+        const skillsClose = document.querySelector('.skills-modal-close');
+        
+        // Skills Modals (1 y 2)
+        const skillsModal1 = document.getElementById('skillsModal1');
+        const skillsModal2 = document.getElementById('skillsModal2');
+        
+        // Función para cerrar modales
+        function closeSkillsModal(modal) {
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Cerrar modales al hacer click fuera (en el fondo)
+        [skillsModal1, skillsModal2].forEach(modal => {
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    // Cerrar sólo si se hace click en el fondo del modal (el elemento raíz),
+                    // no cuando se hace click dentro de .skills-modal-content.
+                    if (e.target === modal) {
+                        closeSkillsModal(modal);
+                    }
+                });
+            }
+        });
+        
+        // Botones de cerrar del modal
+        document.querySelectorAll('.skills-modal-close').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const modal = btn.closest('div[id^="skillsModal"]');
+                if (modal) closeSkillsModal(modal);
+            });
+        });
+        
+        // Cerrar con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSkillsModal(skillsModal1);
+                closeSkillsModal(skillsModal2);
+            }
+        });
+    </script>
+
+    <script>
+    const canvas = document.getElementById('neuronal-bg');
+    const ctx = canvas.getContext('2d');
+    let particlesArray;
+    const MAX_PARTICLES = 220; // límite máximo para no saturar la pantalla
+
+    // Ajustar tamaño al inicio
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Objeto para rastrear el mouse
+    let mouse = {
+        x: null,
+        y: null,
+        radius: 150 // Radio de conexión del mouse
+    };
+
+    // Evento: Mover el mouse
+    window.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+    });
+
+    // Evento: Click para CREAR partículas (Explosión)
+    window.addEventListener('click', function(event) {
+        // Creamos 5 partículas nuevas donde hiciste click
+        for (let i = 0; i < 5; i++) {
+            particlesArray.push(new Particle(event.x, event.y));
+        }
+        // Si nos pasamos del límite, borramos las más antiguas
+        if (particlesArray.length > MAX_PARTICLES) {
+            const exceso = particlesArray.length - MAX_PARTICLES;
+            particlesArray.splice(0, exceso);
+        }
+    });
+
+    // Limpiar mouse al salir de la ventana para que no se queden líneas pegadas al borde
+    window.addEventListener('mouseout', function() {
+        mouse.x = undefined;
+        mouse.y = undefined;
+    });
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
+    });
+
+    class Particle {
+        // Constructor modificado para aceptar coordenadas opcionales (para los clicks)
+        constructor(x, y) {
+            this.x = x || Math.random() * canvas.width;
+            this.y = y || Math.random() * canvas.height;
+            
+            // Si se crea con click, damos una velocidad más rápida inicial (efecto explosión)
+            let velocity = x ? 2 : 0.4; 
+            
+            this.directionX = (Math.random() * velocity) - (velocity / 2);
+            this.directionY = (Math.random() * velocity) - (velocity / 2);
+            this.size = Math.random() * 2 + 1;
+            this.color = '#2dd4bf'; // Tu color Teal
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = 0.6;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+        }
+
+        update() {
+            // Rebote en los bordes
+            if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
+            if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
+
+            this.x += this.directionX;
+            this.y += this.directionY;
+
+            this.draw();
+        }
+    }
+
+    function init() {
+        particlesArray = [];
+        let numberOfParticles = (canvas.height * canvas.width) / 12000;
+        numberOfParticles = Math.min(numberOfParticles, MAX_PARTICLES);
+        for (let i = 0; i < numberOfParticles; i++) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+
+            // 1. Conectar partículas entre sí
+            for (let j = i; j < particlesArray.length; j++) {
+                const dx = particlesArray[i].x - particlesArray[j].x;
+                const dy = particlesArray[i].y - particlesArray[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 100) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = '#2dd4bf';
+                    ctx.lineWidth = 0.4;
+                    ctx.globalAlpha = 1 - (distance / 100);
+                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                    ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                }
+            }
+
+            // 2. Conectar partículas al MOUSE (Interacción nueva)
+            if (mouse.x != null) {
+                const dx = particlesArray[i].x - mouse.x;
+                const dy = particlesArray[i].y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouse.radius) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = '#2dd4bf'; // Color de conexión con el mouse
+                    ctx.lineWidth = 0.6; // Un poco más grueso
+                    ctx.globalAlpha = 1 - (distance / mouse.radius);
+                    ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                }
+            }
+        }
+    }
+
+    init();
+    animate();
+    </script>
+
+    <!-- Modal Frontend Development -->
+    <div id="skillsModal1">
+        <div class="skills-modal-content">
+            <button class="skills-modal-close" onclick="document.getElementById('skillsModal1').style.display='none'">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-code text-teal-400 mr-2"></i>Frontend Development</h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-white">React.js</span>
+                        <span class="text-teal-400 font-bold text-sm">85%</span>
+                    </div>
+                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 85%"></div>
+                    </div>
+                    <p class="text-xs text-[var(--muted)] mt-1">Componentes funcionales, hooks, Redux, context API</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-xl font-semibold text-white">HTML / CSS</span>
+                        <span class="text-teal-400 font-bold text-lg">95%</span>
+                    </div>
+                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 95%"></div>
+                    </div>
+                    <p class="text-sm text-[var(--muted)] mt-3">Semántica, flexbox, CSS grid, animaciones, variables CSS, preprocesadores</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-xl font-semibold text-white">JavaScript</span>
+                        <span class="text-teal-400 font-bold text-lg">90%</span>
+                    </div>
+                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 90%"></div>
+                    </div>
+                    <p class="text-sm text-[var(--muted)] mt-3">ES6+, DOM manipulation, async/await, promises, event handling, debugging</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-xl font-semibold text-white">Tailwind CSS</span>
+                        <span class="text-teal-400 font-bold text-lg">92%</span>
+                    </div>
+                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 92%"></div>
+                    </div>
+                    <p class="text-sm text-[var(--muted)] mt-3">Utilidades, componentes customizados, responsive design, plugins</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-3">
+                        <span class="text-xl font-semibold text-white">Git / Versionado</span>
+                        <span class="text-teal-400 font-bold text-lg">88%</span>
+                    </div>
+                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 88%"></div>
+                    </div>
+                    <p class="text-sm text-[var(--muted)] mt-3">Git, GitHub, GitLab, branching strategies, pull requests</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Diseño & Creatividad -->
+    <div id="skillsModal2">
+        <div class="skills-modal-content">
+            <button class="skills-modal-close" onclick="document.getElementById('skillsModal2').style.display='none'">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-palette text-teal-400 mr-2"></i>Diseño & Creatividad</h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-white">Figma / UI/UX</span>
+                        <span class="text-teal-400 font-bold text-sm">92%</span>
+                    </div>
+                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 92%"></div>
+                    </div>
+                    <p class="text-xs text-[var(--muted)] mt-1">Diseño de interfaces, prototipos, sistemas de diseño</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-white">Responsive Design</span>
+                        <span class="text-teal-400 font-bold text-sm">95%</span>
+                    </div>
+                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 95%"></div>
+                    </div>
+                    <p class="text-xs text-[var(--muted)] mt-1">Mobile-first, cross-browser, accesibilidad</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-white">Edición de Video</span>
+                        <span class="text-teal-400 font-bold text-sm">85%</span>
+                    </div>
+                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 85%"></div>
+                    </div>
+                    <p class="text-xs text-[var(--muted)] mt-1">Premiere Pro, After Effects, animaciones</p>
+                </div>
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="font-semibold text-white">Diseño Gráfico</span>
+                        <span class="text-teal-400 font-bold text-sm">88%</span>
+                    </div>
+                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
+                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 88%"></div>
+                    </div>
+                    <p class="text-xs text-[var(--muted)] mt-1">Photoshop, Illustrator, logos, banners</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
