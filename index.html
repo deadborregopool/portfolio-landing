@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Luis Fernando | Portfolio Profesional</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -90,6 +90,12 @@
         /* Modal de Habilidades */
         #skillsModal1, #skillsModal2{display:none !important;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-50;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:2rem;padding-top:120px;padding-bottom:120px;overflow:hidden}
         #skillsModal1[style*="display: flex"], #skillsModal2[style*="display: flex"]{display:flex !important}
+        /* Modal de CV */
+        #cvModal{display:none !important;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-[9999] !important;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:2rem;padding-top:120px;padding-bottom:120px;overflow:hidden}
+        #cvModal[style*="display: flex"]{display:flex !important}
+        .cv-modal-content{background:linear-gradient(135deg,var(--surface) 0%,var(--bg) 100%);border:2px solid var(--accent);border-radius:2rem;max-width:900px;width:100%;max-height:85vh;overflow-y:scroll;overflow-x:hidden;padding:2.5rem;position:relative;z-index:10000;box-shadow:0 20px 60px rgba(0,0,0,0.9),0 0 40px rgba(45,212,191,0.2);margin:auto;scrollbar-width:none;-ms-overflow-style:none}
+        .cv-modal-content::-webkit-scrollbar{display:none}
+        .cv-modal-content{-webkit-scrollbar-width:none}
         .skills-modal-content{background:linear-gradient(135deg,var(--surface) 0%,var(--bg) 100%);border:2px solid var(--accent);border-radius:2rem;max-width:900px;width:100%;max-height:70vh;overflow-y:scroll;overflow-x:hidden;padding:2.5rem;position:relative;box-shadow:0 20px 60px rgba(0,0,0,0.9),0 0 40px rgba(45,212,191,0.2);margin:auto;scrollbar-width:none;-ms-overflow-style:none}
         .skills-modal-content::-webkit-scrollbar{display:none}
         .skills-modal-content{-webkit-scrollbar-width:none}
@@ -107,18 +113,145 @@
                 max-height: 80vh;
                 border-radius: 1.5rem;
             }
+            .cv-modal-content{
+                padding: 1.5rem;
+                max-height: 85vh;
+                border-radius: 1.5rem;
+            }
+            /* Hero responsive */
+            #inicio h1{
+                font-size: 2.5rem !important;
+                line-height: 1.2;
+            }
+            #inicio .w-32{
+                width: 6rem;
+                height: 6rem;
+            }
+            #inicio .text-5xl{
+                font-size: 2rem;
+            }
+            /* Botones del hero */
+            #inicio .flex.flex-col button,
+            #inicio .flex.flex-col a{
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 0.75rem 1.5rem;
+            }
+            /* Tarjetas de proyectos */
+            .project-item .p-6{
+                padding: 1rem;
+            }
+            .project-item .flex.items-center.justify-between{
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .project-item .view-case,
+            .project-item .btn-outline{
+                width: 100%;
+                text-align: center;
+            }
+            /* Modal de proyectos */
+            #projectModal .rounded-xl{
+                width: 95% !important;
+                margin: 1rem;
+            }
+            #projectModal .flex.flex-col.md\\:flex-row{
+                flex-direction: column;
+            }
+            #projectModal #modalMedia{
+                width: 100% !important;
+                min-height: 200px;
+            }
+            #projectModal .md\\:w-1\\/2{
+                width: 100% !important;
+                padding: 1rem;
+            }
+            /* Filtros de proyectos */
+            .filter-btn{
+                font-size: 0.875rem;
+                padding: 0.5rem 1rem;
+            }
+            /* Botón WhatsApp flotante */
+            #waBtn{
+                bottom: 1rem;
+                right: 1rem;
+                width: 3.5rem;
+                height: 3.5rem;
+                padding: 0.75rem;
+            }
+            #waBtn .text-2xl{
+                font-size: 1.25rem;
+            }
+            /* Footer */
+            footer .grid{
+                gap: 2rem;
+            }
+            footer .text-xl{
+                font-size: 1.125rem;
+            }
+            /* Sección sobre mí */
+            #sobre .p-8{
+                padding: 1.5rem;
+            }
+            #sobre .w-36{
+                width: 5rem;
+                height: 5rem;
+            }
+            #sobre .text-4xl{
+                font-size: 2rem;
+            }
+            /* Servicios */
+            #servicios .p-8{
+                padding: 1.5rem;
+            }
+            /* Formulario de contacto */
+            #contacto .p-8{
+                padding: 1.5rem;
+            }
+            #contacto input,
+            #contacto textarea{
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px){
+            /* Ajustes para móviles muy pequeños */
+            nav .text-2xl{
+                font-size: 1.25rem;
+            }
+            #inicio h1{
+                font-size: 2rem !important;
+            }
+            #inicio p{
+                font-size: 0.9rem;
+            }
+            section h2{
+                font-size: 2rem;
+            }
+            .project-item h3{
+                font-size: 1.125rem;
+            }
+            .project-item p{
+                font-size: 0.875rem;
+            }
         }
         /* Hero overlay to sit above the canvas but below content */
         #inicio .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(2,6,23,0.20) 0%, rgba(2,6,23,0.12) 40%, rgba(2,6,23,0.22) 100%);pointer-events:none;z-index:0}
         /* Ensure header content is above the overlay */
         #inicio > *:not(canvas):not(.hero-overlay){position:relative;z-index:1}
+        /* Asegurar que los modales estén siempre por encima de todo */
+        #cvModal { z-index: 9999 !important; }
+        #cvModal .cv-modal-content { z-index: 10000 !important; position: relative; }
+        /* Cuando el modal está abierto, reducir z-index del hero */
+        body.cv-modal-open #inicio { z-index: 1 !important; }
+        body.cv-modal-open #inicio > * { z-index: 1 !important; position: relative; }
     </style>
 </head>
 <body class="bg-zinc-900 text-[#d4d4d8] font-sans antialiased">
 
 
     <!-- Navegación Sticky -->
-    <nav class="fixed top-0 w-full z-50 sticky">
+    <nav class="fixed top-0 w-full z-50 sticky" style="z-index: 50;">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-6">
                 <div class="text-2xl font-bold text-teal-400">Luis Fernando</div>
@@ -129,6 +262,9 @@
                     <a href="#habilidades" class="hover:text-teal-400 transition">Habilidades</a>
                     <a href="#proyectos" class="hover:text-teal-400 transition">Proyectos</a>
                     <a href="#contacto" class="hover:text-teal-400 transition">Contacto</a>
+                    <button id="openCVBtn" class="hover:text-teal-400 transition flex items-center gap-1">
+                        <i class="fas fa-file-pdf"></i> CV
+                    </button>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -154,6 +290,9 @@
                 <a href="#habilidades" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Habilidades</a>
                 <a href="#proyectos" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Proyectos</a>
                 <a href="#contacto" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition">Contacto</a>
+                <button id="openCVBtnMobile" class="block py-1 text-[var(--muted)] hover:text-teal-400 transition w-full text-left flex items-center gap-2">
+                    <i class="fas fa-file-pdf"></i> Ver CV
+                </button>
             </div>
         </div>
     </nav>
@@ -172,15 +311,18 @@
         <h1 class="text-5xl md:text-7xl font-bold text-white mb-4 fade-in">
             Hola, soy <span class="text-teal-400 animate-bounce">Luis Fernando</span>
         </h1>
-        <p class="text-xl md:text-2xl text-[var(--muted)] mb-2 fade-in">Estudiante de Desarrollo Web · Editor de Video y Fotografía</p>
-        <p class="text-lg text-[var(--muted)] mb-10 fade-in">He realizado prácticas en desarrollo web y trabajo en producción multimedia</p>
-        <div class="flex flex-col md:flex-row gap-4 fade-in">
-                <a href="#proyectos" class="btn-primary font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105">
+        <p class="text-xl md:text-2xl text-[var(--muted)] mb-2 fade-in">Desarrollador Full Stack · Especialista en UX y E-commerce</p>
+        <p class="text-lg text-[var(--muted)] mb-10 fade-in">Implemento soluciones web escalables y optimizo experiencias de usuario para incrementar conversiones</p>
+        <div class="flex flex-col md:flex-row gap-4 fade-in w-full max-w-2xl mx-auto px-4">
+                <a href="#proyectos" class="btn-primary font-bold py-3 px-6 md:px-8 rounded-full transition-all duration-300 hover:scale-105 text-center">
                 Ver Mis Trabajos
             </a>
-            <a href="#contacto" class="btn-outline font-bold py-3 px-8 rounded-full transition-all duration-300 hover:scale-105">
+            <a href="#contacto" class="btn-outline font-bold py-3 px-6 md:px-8 rounded-full transition-all duration-300 hover:scale-105 text-center">
                 Iniciar Proyecto
             </a>
+            <button id="openCVBtnHero" class="btn-outline font-bold py-3 px-6 md:px-8 rounded-full transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
+                <i class="fas fa-file-pdf"></i> Ver CV
+            </button>
         </div>
     </header>
 
@@ -197,12 +339,12 @@
             </div>
             <div class="md:col-span-2">
                 <h2 class="text-3xl font-bold text-white mb-4">Sobre mí</h2>
-                <p class="text-[var(--muted)] mb-4">Soy Luis Fernando Fabrizzio Gutierrez Sanchez, estudiante de desarrollo web que ha realizado prácticas profesionales en proyectos frontend. También trabajo en edición de video y fotografía, combinando habilidades técnicas y creativas para entregar productos digitales completos.</p>
+                <p class="text-[var(--muted)] mb-4">Desarrollo aplicaciones Full Stack implementando arquitecturas escalables con React, Node.js y SQL. Optimizo la experiencia de usuario (UX) en proyectos de E-commerce para incrementar conversiones y fidelizar clientes mediante interfaces responsivas y análisis de datos.</p>
                 <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[var(--muted)] mb-6">
-                    <li>✓ Prácticas en desarrollo web (frontend)</li>
-                    <li>✓ Edición de video y fotografía</li>
-                    <li>✓ Frontend moderno: React, JavaScript, Tailwind</li>
-                    <li>✓ Diseño responsivo y accesibilidad</li>
+                    <li>✓ Desarrollo Full Stack con React y Node.js</li>
+                    <li>✓ Optimización de UX y estrategias de conversión</li>
+                    <li>✓ Integración de APIs y bases de datos SQL</li>
+                    <li>✓ Metodologías Ágiles y control de versiones con Git/GitHub</li>
                 </ul>
             </div>
         </div>
@@ -218,32 +360,26 @@
                         <span class="text-teal-400"><i class="fas fa-code"></i></span> Frontend Development
                     </h3>
                     <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>HTML / CSS</span>
-                                <span>95%</span>
+                        <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-white">HTML / CSS</span>
+                                <span class="text-teal-400 text-sm font-medium">Avanzado</span>
                             </div>
-                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 95%"></div>
-                            </div>
+                            <p class="text-sm text-[var(--muted)]">Maquetación semántica, CSS Grid, Flexbox y diseño Responsive para interfaces adaptables a todos los dispositivos.</p>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>React / Vue.js</span>
-                                <span>85%</span>
+                        <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-white">React / Vue.js</span>
+                                <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                             </div>
-                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 85%; animation-delay: 0.1s"></div>
-                            </div>
+                            <p class="text-sm text-[var(--muted)]">Implementación de componentes funcionales, hooks, gestión de estado y arquitectura de aplicaciones escalables.</p>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>JavaScript</span>
-                                <span>90%</span>
+                        <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-white">JavaScript</span>
+                                <span class="text-teal-400 text-sm font-medium">Avanzado</span>
                             </div>
-                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 90%; animation-delay: 0.2s"></div>
-                            </div>
+                            <p class="text-sm text-[var(--muted)]">ES6+, manipulación del DOM, async/await, promesas y programación asíncrona para aplicaciones dinámicas.</p>
                         </div>
                     </div>
                     <p class="text-sm text-teal-400 mt-4 flex items-center gap-2"><i class="fas fa-arrow-right"></i> Click para ver más detalles</p>
@@ -253,23 +389,19 @@
                         <span class="text-teal-400"><i class="fas fa-brush"></i></span> Diseño & Creatividad
                     </h3>
                     <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Figma / UI/UX</span>
-                                <span>92%</span>
+                        <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-white">Figma / UI/UX</span>
+                                <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                             </div>
-                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 92%; animation-delay: 0.4s"></div>
-                            </div>
+                            <p class="text-sm text-[var(--muted)]">Diseño de interfaces centradas en la experiencia de usuario (UX), prototipado y sistemas de diseño para optimizar conversiones.</p>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-2">
-                                <span>Edición de Video</span>
-                                <span>85%</span>
+                        <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-semibold text-white">Edición de Video</span>
+                                <span class="text-teal-400 text-sm font-medium">Intermedio</span>
                             </div>
-                            <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                                <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)] skill-bar" style="width: 85%; animation-delay: 0.5s"></div>
-                            </div>
+                            <p class="text-sm text-[var(--muted)]">Producción de contenido multimedia con Premiere Pro y After Effects para campañas de marketing digital.</p>
                         </div>
                     </div>
                     <p class="text-sm text-teal-400 mt-4 flex items-center gap-2"><i class="fas fa-arrow-right"></i> Click para ver más detalles</p>
@@ -284,18 +416,18 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
                     <div class="text-4xl mb-4 text-teal-400"><i class="fas fa-globe"></i></div>
-                <h3 class="text-xl font-bold text-white mb-3">Diseño Web</h3>
-                <p class="text-[var(--muted)]">Sitios web modernos, responsivos y optimizados para conversión</p>
+                <h3 class="text-xl font-bold text-white mb-3">Desarrollo Web</h3>
+                <p class="text-[var(--muted)]">Implemento aplicaciones Full Stack con arquitecturas escalables, optimizando UX para incrementar conversiones en E-commerce</p>
             </div>
             <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
                 <div class="text-4xl mb-4 text-[var(--accent)]"><i class="fas fa-palette"></i></div>
-                <h3 class="text-xl font-bold text-white mb-3">Diseño Gráfico</h3>
-                <p class="text-[var(--muted)]">Banners, logos y contenido visual para redes sociales</p>
+                <h3 class="text-xl font-bold text-white mb-3">Marketing Digital</h3>
+                <p class="text-[var(--muted)]">Estrategias de segmentación, análisis de datos y creación de contenido visual para fidelizar clientes y optimizar campañas</p>
             </div>
             <div class="bg-[var(--surface)] p-8 rounded-xl card-hover">
                 <div class="text-4xl mb-4 text-[var(--accent-2)]"><i class="fas fa-video"></i></div>
                 <h3 class="text-xl font-bold text-white mb-3">Contenido Multimedia</h3>
-                <p class="text-[var(--muted)]">Videos, animaciones y edición profesional de contenido</p>
+                <p class="text-[var(--muted)]">Producción y edición de videos promocionales con animaciones para maximizar engagement y conversión en redes sociales</p>
             </div>
         </div>
     </section>
@@ -305,17 +437,17 @@
         <h2 class="text-4xl font-bold text-white mb-6 text-center">Proyectos Destacados</h2>
         <p class="text-center text-[var(--muted)] mb-8">Explora una selección de trabajos organizados por categoría. Haz click en "Ver caso" para ver detalles.</p>
 
-        <div class="flex justify-center gap-3 mb-8">
-            <button data-filter="all" class="filter-btn px-4 py-2 rounded-full filter-active">Todo</button>
-            <button data-filter="web" class="filter-btn px-4 py-2 rounded-full border border-transparent">Páginas Web</button>
-            <button data-filter="img" class="filter-btn px-4 py-2 rounded-full border border-transparent">Imágenes</button>
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-8 px-4">
+            <button data-filter="all" class="filter-btn px-3 md:px-4 py-2 rounded-full filter-active text-sm md:text-base">Todo</button>
+            <button data-filter="web" class="filter-btn px-3 md:px-4 py-2 rounded-full border border-transparent text-sm md:text-base">Páginas Web</button>
+            <button data-filter="img" class="filter-btn px-3 md:px-4 py-2 rounded-full border border-transparent text-sm md:text-base">Imágenes</button>
         </div>
 
         <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Card: Web -->
-            <article data-type="web" data-media="./Multimedia/Web1.png" data-title="E-Commerce Tech" data-desc="Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión." data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <article data-type="web" data-media="./Multimedia/Web1.png" data-title="E-Commerce Tech" data-desc="Implementé una plataforma E-commerce Full Stack optimizando la experiencia de usuario para facilitar la compra y incrementar conversiones mediante un checkout intuitivo." data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
-                    <img src="./Multimedia/Web1.png" alt="Proyecto Web" class="w-full h-48 object-cover">
+                    <img src="./Multimedia/Web1.png" alt="Proyecto Web" class="w-full h-48 object-cover" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                     <div class="p-6 flex flex-col gap-3">
@@ -323,24 +455,24 @@
                         <h3 class="text-xl font-bold">E-Commerce Tech</h3>
                         <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Implementé una plataforma E-commerce Full Stack optimizando la experiencia de usuario para facilitar la compra y incrementar conversiones mediante un checkout intuitivo.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Vercel</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <a href="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
-                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="E-Commerce Tech" data-desc="Tienda online con carrito de compras, búsqueda de productos y checkout optimizado para conversión." data-media="./Multimedia/Web1.png" data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/">Ver caso</button>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                            <a href="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-2 rounded text-sm text-center">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded text-sm" data-type="web" data-title="E-Commerce Tech" data-desc="Implementé una plataforma E-commerce Full Stack optimizando la experiencia de usuario para facilitar la compra y incrementar conversiones mediante un checkout intuitivo." data-media="./Multimedia/Web1.png" data-link="https://tienda-frontend-66rd2gh4a-deadborregopools-projects.vercel.app/">Ver caso</button>
                         </div>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Sistema de Inventario -->
-            <article data-type="web" data-media="./Multimedia/Web2.png" data-title="Sistema de Inventario" data-desc="Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock." data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <article data-type="web" data-media="./Multimedia/Web2.png" data-title="Sistema de Inventario" data-desc="Desarrollé un sistema de gestión integral integrando bases de datos SQL con lógica de servidor en Node.js, implementando reportes en tiempo real para optimizar la administración de inventario." data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
-                    <img src="./Multimedia/Web2.png" alt="Sistema de Inventario" class="w-full h-48 object-cover">
+                    <img src="./Multimedia/Web2.png" alt="Sistema de Inventario" class="w-full h-48 object-cover" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                     <div class="p-6 flex flex-col gap-3">
@@ -348,24 +480,24 @@
                         <h3 class="text-xl font-bold">Sistema de Inventario</h3>
                         <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Desarrollé un sistema de gestión integral integrando bases de datos SQL con lógica de servidor en Node.js, implementando reportes en tiempo real para optimizar la administración de inventario.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Node.js</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <a href="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
-                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="Sistema de Inventario" data-desc="Sistema integral de inventario con panel administrativo, reportes en tiempo real y gestión avanzada de stock." data-media="./Multimedia/Web2.png" data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/">Ver caso</button>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                            <a href="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/" target="_blank" class="inline-block btn-outline px-3 py-2 rounded text-sm text-center">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded text-sm" data-type="web" data-title="Sistema de Inventario" data-desc="Desarrollé un sistema de gestión integral integrando bases de datos SQL con lógica de servidor en Node.js, implementando reportes en tiempo real para optimizar la administración de inventario." data-media="./Multimedia/Web2.png" data-link="https://tienda-admin-j0eqd1def-deadborregopools-projects.vercel.app/">Ver caso</button>
                         </div>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Web Radio -->
-            <article data-type="web" data-media="./Multimedia/Web3.png" data-title="Web Radio" data-desc="Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly." data-link="https://frontend-radio-strapi.vercel.app/calendario" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <article data-type="web" data-media="./Multimedia/Web3.png" data-title="Web Radio" data-desc="Desplegué una plataforma web interactiva con arquitectura Full Stack, integrando APIs de streaming y diseñando una experiencia mobile-friendly para incrementar el engagement de usuarios." data-link="https://frontend-radio-strapi.vercel.app/calendario" class="project-item project-web bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
-                    <img src="./Multimedia/Web3.png" alt="Web Radio" class="w-full h-48 object-cover">
+                    <img src="./Multimedia/Web3.png" alt="Web Radio" class="w-full h-48 object-cover" loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                     <div class="p-6 flex flex-col gap-3">
@@ -373,22 +505,22 @@
                         <h3 class="text-xl font-bold">Web Radio</h3>
                         <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Web</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Desplegué una plataforma web interactiva con arquitectura Full Stack, integrando APIs de streaming y diseñando una experiencia mobile-friendly para incrementar el engagement de usuarios.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">React</span>
                             <span class="px-2 py-1 bg-[rgba(255,255,255,0.02)] rounded">Strapi</span>
                         </div>
-                        <div class="flex items-center gap-2">
-                            <a href="https://frontend-radio-strapi.vercel.app/calendario" target="_blank" class="inline-block btn-outline px-3 py-1 rounded text-sm">Abrir web</a>
-                            <button class="view-case btn-primary px-4 py-2 rounded" data-type="web" data-title="Web Radio" data-desc="Plataforma web interactiva para radio en vivo con calendario de programación, streaming en directo y experiencia mobile-friendly." data-media="./Multimedia/Web3.png" data-link="https://frontend-radio-strapi.vercel.app/calendario">Ver caso</button>
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+                            <a href="https://frontend-radio-strapi.vercel.app/calendario" target="_blank" class="inline-block btn-outline px-3 py-2 rounded text-sm text-center">Abrir web</a>
+                            <button class="view-case btn-primary px-4 py-2 rounded text-sm" data-type="web" data-title="Web Radio" data-desc="Desplegué una plataforma web interactiva con arquitectura Full Stack, integrando APIs de streaming y diseñando una experiencia mobile-friendly para incrementar el engagement de usuarios." data-media="./Multimedia/Web3.png" data-link="https://frontend-radio-strapi.vercel.app/calendario">Ver caso</button>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <!-- Card: Video -->
-            <article data-type="video" data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Campaña Promo" data-desc="Video promocional para producto — edición y animación." class="project-item project-video bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <!-- Card: Video 
+                    <article data-type="video" data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Campaña Promo" data-desc="Produje y edité contenido multimedia promocional con animaciones estratégicas para optimizar el engagement y la conversión en campañas de marketing digital." class="project-item project-video bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
                     <img src="https://placehold.co/800x500/071029/FFF?text=Video+Promo" alt="Video" class="w-full h-48 object-cover">
                     <div class="absolute inset-0 flex items-center justify-center play-overlay">
@@ -402,55 +534,55 @@
                         <h3 class="text-xl font-bold">Campaña Promo</h3>
                             <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[rgba(255,255,255,0.02)]">Video</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Producción de video promocional con edición profesional y animaciones atractivas para maximizar engagement.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Produje y edité contenido multimedia promocional con animaciones estratégicas para optimizar el engagement y la conversión en campañas de marketing digital.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-zinc-700 rounded">Premiere</span>
                             <span class="px-2 py-1 bg-zinc-700 rounded">After Effects</span>
                         </div>
-                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="video" data-title="Campaña Promo" data-desc="Video promocional para producto — edición y animación." data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-link="#">Ver caso</button>
+                        <button class="view-case btn-primary px-4 py-2 rounded text-sm w-full sm:w-auto" data-type="video" data-title="Campaña Promo" data-desc="Produje y edité contenido multimedia promocional con animaciones estratégicas para optimizar el engagement y la conversión en campañas de marketing digital." data-media="https://www.youtube.com/embed/dQw4w9WgXcQ" data-link="#">Ver caso</button>
                     </div>
                 </div>
             </article>
-            
+            -->
             <!-- Card: Image Gallery (Publicidad) -->
-            <article data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseño de banners y materiales publicitarios para múltiples campañas." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <article data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseñé estrategias visuales segmentando audiencias objetivo para crear materiales publicitarios que optimizan la conversión y fidelizan clientes en redes sociales." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
-                    <img src="./Multimedia/Publicidad1.png" alt="Galería Publicidad" class="w-full h-48 object-cover">
+                    <img src="./Multimedia/Publicidad1.png" alt="Galería Publicidad" class="w-full h-48 object-cover" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col gap-3">
                     <div class="flex items-center justify-between">
                         <h3 class="text-xl font-bold">Campañas Publicitarias</h3>
                         <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[var(--surface)]">Imagen</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Colección de banners y materiales publicitarios diseñados para impactar en redes sociales y captar la atención del público.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Diseñé estrategias visuales segmentando audiencias objetivo para crear materiales publicitarios que optimizan la conversión y fidelizan clientes en redes sociales.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-zinc-700 rounded">Photoshop</span>
                             <span class="px-2 py-1 bg-zinc-700 rounded">Figma</span>
                         </div>
-                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseño de banners y materiales publicitarios para múltiples campañas.">Ver galería</button>
+                        <button class="view-case btn-primary px-4 py-2 rounded text-sm w-full sm:w-auto" data-type="img" data-gallery='["./Multimedia/Publicidad1.png","./Multimedia/Publicidad2.png","./Multimedia/Publicidad3.png"]' data-title="Campañas Publicitarias" data-desc="Diseñé estrategias visuales segmentando audiencias objetivo para crear materiales publicitarios que optimizan la conversión y fidelizan clientes en redes sociales.">Ver galería</button>
                     </div>
                 </div>
             </article>
 
             <!-- Card: Logo (Galería) -->
-            <article data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Diseño de identidad visual y logotipos profesionales." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
+            <article data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Desarrollé identidades visuales estratégicas mediante análisis de marca, creando logotipos y sistemas de diseño que optimizan el reconocimiento y la fidelización de clientes." class="project-item project-img bg-gradient-to-b from-[var(--surface)] to-[var(--bg)] p-0 rounded-xl overflow-hidden shadow-lg">
                 <div class="relative media-img">
-                    <img src="./Multimedia/Logo1.png" alt="Logo Design" class="w-full h-48 object-cover">
+                    <img src="./Multimedia/Logo1.png" alt="Logo Design" class="w-full h-48 object-cover" loading="lazy">
                 </div>
                 <div class="p-6 flex flex-col gap-3">
                     <div class="flex items-center justify-between">
                         <h3 class="text-xl font-bold">Logo Design</h3>
                         <div class="text-xs text-[var(--muted)] px-2 py-1 rounded bg-[var(--surface)]">Logo</div>
                     </div>
-                    <p class="text-[#94a3b8] text-sm">Identidad visual profesional con logotipos modernos que representan la esencia de la marca.</p>
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex gap-2 text-xs text-[var(--muted)]">
+                    <p class="text-[#94a3b8] text-sm">Desarrollé identidades visuales estratégicas mediante análisis de marca, creando logotipos y sistemas de diseño que optimizan el reconocimiento y la fidelización de clientes.</p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-4 gap-3">
+                        <div class="flex flex-wrap gap-2 text-xs text-[var(--muted)]">
                             <span class="px-2 py-1 bg-zinc-700 rounded">Illustrator</span>
                             <span class="px-2 py-1 bg-zinc-700 rounded">Figma</span>
                         </div>
-                        <button class="view-case btn-primary px-4 py-2 rounded" data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Diseño de identidad visual y logotipos profesionales.">Ver galería</button>
+                        <button class="view-case btn-primary px-4 py-2 rounded text-sm w-full sm:w-auto" data-type="img" data-gallery='["./Multimedia/Logo1.png","./Multimedia/logo2.png","./Multimedia/logo3.jpeg"]' data-title="Logo Design" data-desc="Desarrollé identidades visuales estratégicas mediante análisis de marca, creando logotipos y sistemas de diseño que optimizan el reconocimiento y la fidelización de clientes.">Ver galería</button>
                     </div>
                 </div>
             </article>
@@ -459,31 +591,31 @@
         </div>
 
         <!-- Modal / Lightbox para mostrar detalles del proyecto -->
-        <div id="projectModal" class="fixed inset-0 bg-black/60 hidden z-50 items-center justify-center">
-            <div class="rounded-xl w-[90%] max-w-5xl mx-auto overflow-hidden shadow-2xl" style="background:var(--surface)">
+        <div id="projectModal" class="fixed inset-0 bg-black/60 hidden z-50 items-center justify-center p-4">
+            <div class="rounded-xl w-full max-w-5xl mx-auto overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto" style="background:var(--surface)">
                 <div class="flex flex-col md:flex-row">
-                    <div id="modalMedia" class="md:w-1/2 bg-black flex items-center justify-center p-4 relative">
+                    <div id="modalMedia" class="md:w-1/2 bg-black flex items-center justify-center p-2 md:p-4 relative min-h-[200px] md:min-h-[400px]">
                         <!-- media dinámico -->
                     </div>
-                    <div class="md:w-1/2 p-6">
-                        <div class="flex items-start justify-between">
-                            <div>
-                                <h3 id="modalTitle" class="text-2xl font-bold mb-2"></h3>
-                                <p id="modalTags" class="text-sm text-[var(--muted)] mb-4"></p>
+                    <div class="md:w-1/2 p-4 md:p-6">
+                        <div class="flex items-start justify-between gap-2">
+                            <div class="flex-1">
+                                <h3 id="modalTitle" class="text-xl md:text-2xl font-bold mb-2"></h3>
+                                <p id="modalTags" class="text-xs md:text-sm text-[var(--muted)] mb-4"></p>
                             </div>
-                            <button id="modalClose" class="text-[var(--muted)] hover:text-white">✕</button>
+                            <button id="modalClose" class="text-[var(--muted)] hover:text-white text-2xl md:text-xl flex-shrink-0">✕</button>
                         </div>
-                        <p id="modalDesc" class="text-[var(--muted)] mb-4"></p>
+                        <p id="modalDesc" class="text-sm md:text-base text-[var(--muted)] mb-4"></p>
                         <!-- Controles de galería (mostrar solo para múltiples imágenes) -->
-                        <div id="galleryControls" class="hidden mb-4 flex items-center justify-between bg-zinc-800 p-3 rounded">
-                            <button id="prevImg" class="text-teal-400 hover:text-teal-300 transition"><i class="fas fa-chevron-left"></i></button>
-                            <span id="imgCounter" class="text-sm text-zinc-400"></span>
-                            <button id="nextImg" class="text-teal-400 hover:text-teal-300 transition"><i class="fas fa-chevron-right"></i></button>
+                        <div id="galleryControls" class="hidden mb-4 flex items-center justify-between bg-zinc-800 p-2 md:p-3 rounded">
+                            <button id="prevImg" class="text-teal-400 hover:text-teal-300 transition p-2"><i class="fas fa-chevron-left"></i></button>
+                            <span id="imgCounter" class="text-xs md:text-sm text-zinc-400"></span>
+                            <button id="nextImg" class="text-teal-400 hover:text-teal-300 transition p-2"><i class="fas fa-chevron-right"></i></button>
                         </div>
                         <div class="mt-4">
-                            <a id="modalLink" href="#" target="_blank" class="inline-block btn-primary px-4 py-2 rounded">Ver web en vivo →</a>
+                            <a id="modalLink" href="#" target="_blank" class="inline-block btn-primary px-4 py-2 rounded text-sm md:text-base w-full md:w-auto text-center">Ver web en vivo →</a>
                         </div>
-                        <div class="mt-6 text-sm text-[var(--muted)]">✓ Proyecto completado exitosamente con resultados medibles y satisfacción del cliente.</div>
+                        <div class="mt-4 md:mt-6 text-xs md:text-sm text-[var(--muted)]">✓ Proyecto completado exitosamente con resultados medibles y satisfacción del cliente.</div>
                     </div>
                 </div>
             </div>
@@ -793,37 +925,123 @@
         const skillsModal = document.getElementById('skillsModal');
         const skillsClose = document.querySelector('.skills-modal-close');
         
-        // Skills Modals (1 y 2)
-        const skillsModal1 = document.getElementById('skillsModal1');
-        const skillsModal2 = document.getElementById('skillsModal2');
-        
-        // Función para cerrar modales
-        function closeSkillsModal(modal) {
-            if (modal) {
-                modal.style.display = 'none';
+        // Skills Modals (1 y 2) - Inicialización mejorada
+        function initSkillsModals() {
+            const skillsModal1 = document.getElementById('skillsModal1');
+            const skillsModal2 = document.getElementById('skillsModal2');
+            
+            if (!skillsModal1 || !skillsModal2) return;
+            
+            // Función para cerrar modales
+            function closeSkillsModal(modal) {
+                if (modal) {
+                    modal.style.display = 'none';
+                }
             }
-        }
-        
-        // Cerrar modales al hacer click fuera (en el fondo)
-        [skillsModal1, skillsModal2].forEach(modal => {
-            if (modal) {
+            
+            // Cerrar modales al hacer click fuera (en el fondo) - Solución mejorada
+            [skillsModal1, skillsModal2].forEach(modal => {
+                const modalContent = modal.querySelector('.skills-modal-content');
+                
+                // Event listener en el modal completo
                 modal.addEventListener('click', (e) => {
-                    // Cerrar sólo si se hace click en el fondo del modal (el elemento raíz),
-                    // no cuando se hace click dentro de .skills-modal-content.
-                    if (e.target === modal) {
+                    // Verificar si el click fue fuera del contenido del modal
+                    const clickedInsideContent = modalContent && modalContent.contains(e.target);
+                    const clickedOnCloseButton = e.target.closest('.skills-modal-close');
+                    
+                    // Solo cerrar si el click NO fue dentro del contenido ni en el botón cerrar
+                    if (!clickedInsideContent && !clickedOnCloseButton) {
                         closeSkillsModal(modal);
                     }
                 });
-            }
-        });
-        
-        // Botones de cerrar del modal
-        document.querySelectorAll('.skills-modal-close').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const modal = btn.closest('div[id^="skillsModal"]');
-                if (modal) closeSkillsModal(modal);
+                
+                // Prevenir propagación en el contenido
+                if (modalContent) {
+                    modalContent.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                    });
+                }
             });
+            
+            // Botones de cerrar del modal
+            document.querySelectorAll('.skills-modal-close').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const modal = btn.closest('div[id^="skillsModal"]');
+                    if (modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        }
+        
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initSkillsModals);
+        } else {
+            initSkillsModals();
+        }
+        
+        // Modal CV - Funciones globales
+        window.openCVModal = function() {
+            const cvModal = document.getElementById('cvModal');
+            if (cvModal) {
+                cvModal.style.display = 'flex';
+                document.body.classList.add('cv-modal-open');
+            }
+        };
+        
+        window.closeCVModal = function() {
+            const cvModal = document.getElementById('cvModal');
+            if (cvModal) {
+                cvModal.style.display = 'none';
+                document.body.classList.remove('cv-modal-open');
+            }
+        };
+        
+        // Conectar todos los botones cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCVModal);
+        } else {
+            initCVModal();
+        }
+        
+        function initCVModal() {
+            const cvModal = document.getElementById('cvModal');
+            
+            // Conectar botones
+            const openCVBtn = document.getElementById('openCVBtn');
+            const openCVBtnMobile = document.getElementById('openCVBtnMobile');
+            const openCVBtnHero = document.getElementById('openCVBtnHero');
+            
+            if (openCVBtn) openCVBtn.addEventListener('click', window.openCVModal);
+            if (openCVBtnMobile) openCVBtnMobile.addEventListener('click', window.openCVModal);
+            if (openCVBtnHero) openCVBtnHero.addEventListener('click', window.openCVModal);
+            
+            // Cerrar modal CV al hacer click fuera
+            if (cvModal) {
+                cvModal.addEventListener('click', (e) => {
+                    if (e.target === cvModal) {
+                        window.closeCVModal();
+                    }
+                });
+            }
+        }
+        
+        // Cerrar modales con Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const skillsModal1 = document.getElementById('skillsModal1');
+                const skillsModal2 = document.getElementById('skillsModal2');
+                if (skillsModal1 && skillsModal1.style.display === 'flex') {
+                    skillsModal1.style.display = 'none';
+                }
+                if (skillsModal2 && skillsModal2.style.display === 'flex') {
+                    skillsModal2.style.display = 'none';
+                }
+                window.closeCVModal();
+            }
         });
         
         // Cerrar con Escape
@@ -831,6 +1049,7 @@
             if (e.key === 'Escape') {
                 closeSkillsModal(skillsModal1);
                 closeSkillsModal(skillsModal2);
+                closeCVModal();
             }
         });
     </script>
@@ -980,62 +1199,54 @@
     <!-- Modal Frontend Development -->
     <div id="skillsModal1">
         <div class="skills-modal-content">
-            <button class="skills-modal-close" onclick="document.getElementById('skillsModal1').style.display='none'">
+            <button class="skills-modal-close">
                 <i class="fas fa-times"></i>
             </button>
             
             <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-code text-teal-400 mr-2"></i>Frontend Development</h2>
             
-            <div class="space-y-5">
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-white">React.js</span>
-                        <span class="text-teal-400 font-bold text-sm">85%</span>
+            <div class="space-y-4">
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">React.js</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                     </div>
-                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 85%"></div>
-                    </div>
-                    <p class="text-xs text-[var(--muted)] mt-1">Componentes funcionales, hooks, Redux, context API</p>
+                    <p class="text-sm text-[var(--muted)]">Implemento componentes funcionales con hooks, gestiono estado con Context API y Redux para aplicaciones escalables.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-xl font-semibold text-white">HTML / CSS</span>
-                        <span class="text-teal-400 font-bold text-lg">95%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">HTML / CSS</span>
+                        <span class="text-teal-400 text-sm font-medium">Avanzado</span>
                     </div>
-                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 95%"></div>
-                    </div>
-                    <p class="text-sm text-[var(--muted)] mt-3">Semántica, flexbox, CSS grid, animaciones, variables CSS, preprocesadores</p>
+                    <p class="text-sm text-[var(--muted)]">Maquetación semántica con Flexbox y CSS Grid, implementando diseño Responsive y animaciones para optimizar UX.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-xl font-semibold text-white">JavaScript</span>
-                        <span class="text-teal-400 font-bold text-lg">90%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">JavaScript</span>
+                        <span class="text-teal-400 text-sm font-medium">Avanzado</span>
                     </div>
-                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 90%"></div>
-                    </div>
-                    <p class="text-sm text-[var(--muted)] mt-3">ES6+, DOM manipulation, async/await, promises, event handling, debugging</p>
+                    <p class="text-sm text-[var(--muted)]">Desarrollo con ES6+, manipulación del DOM, programación asíncrona con async/await y manejo de promesas para aplicaciones dinámicas.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-xl font-semibold text-white">Tailwind CSS</span>
-                        <span class="text-teal-400 font-bold text-lg">92%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Tailwind CSS</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                     </div>
-                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 92%"></div>
-                    </div>
-                    <p class="text-sm text-[var(--muted)] mt-3">Utilidades, componentes customizados, responsive design, plugins</p>
+                    <p class="text-sm text-[var(--muted)]">Utilizo utilidades de Tailwind para crear interfaces Responsive, componentes customizados y optimizar el tiempo de desarrollo.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-3">
-                        <span class="text-xl font-semibold text-white">Git / Versionado</span>
-                        <span class="text-teal-400 font-bold text-lg">88%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Git / GitHub</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                     </div>
-                    <div class="h-3 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 88%"></div>
+                    <p class="text-sm text-[var(--muted)]">Control de versiones con Git, gestión de repositorios en GitHub, branching strategies y colaboración mediante pull requests siguiendo Metodologías Ágiles.</p>
+                </div>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Node.js / Backend</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio</span>
                     </div>
-                    <p class="text-sm text-[var(--muted)] mt-3">Git, GitHub, GitLab, branching strategies, pull requests</p>
+                    <p class="text-sm text-[var(--muted)]">Desarrollo de APIs RESTful, integración con bases de datos SQL y lógica de servidor para aplicaciones Full Stack.</p>
                 </div>
             </div>
         </div>
@@ -1044,52 +1255,99 @@
     <!-- Modal Diseño & Creatividad -->
     <div id="skillsModal2">
         <div class="skills-modal-content">
-            <button class="skills-modal-close" onclick="document.getElementById('skillsModal2').style.display='none'">
+            <button class="skills-modal-close">
                 <i class="fas fa-times"></i>
             </button>
             
             <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-palette text-teal-400 mr-2"></i>Diseño & Creatividad</h2>
             
-            <div class="space-y-5">
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-white">Figma / UI/UX</span>
-                        <span class="text-teal-400 font-bold text-sm">92%</span>
+            <div class="space-y-4">
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Figma / UI/UX</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio-Avanzado</span>
                     </div>
-                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 92%"></div>
-                    </div>
-                    <p class="text-xs text-[var(--muted)] mt-1">Diseño de interfaces, prototipos, sistemas de diseño</p>
+                    <p class="text-sm text-[var(--muted)]">Diseño de interfaces centradas en la experiencia de usuario (UX), prototipado interactivo y sistemas de diseño para optimizar conversiones en E-commerce.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-white">Responsive Design</span>
-                        <span class="text-teal-400 font-bold text-sm">95%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Responsive Design</span>
+                        <span class="text-teal-400 text-sm font-medium">Avanzado</span>
                     </div>
-                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 95%"></div>
-                    </div>
-                    <p class="text-xs text-[var(--muted)] mt-1">Mobile-first, cross-browser, accesibilidad</p>
+                    <p class="text-sm text-[var(--muted)]">Implemento enfoques Mobile-first, asegurando compatibilidad cross-browser y accesibilidad para optimizar la experiencia en todos los dispositivos.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-white">Edición de Video</span>
-                        <span class="text-teal-400 font-bold text-sm">85%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Edición de Video</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio</span>
                     </div>
-                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 85%"></div>
-                    </div>
-                    <p class="text-xs text-[var(--muted)] mt-1">Premiere Pro, After Effects, animaciones</p>
+                    <p class="text-sm text-[var(--muted)]">Produzco contenido multimedia con Premiere Pro y After Effects, creando animaciones estratégicas para campañas de marketing digital que incrementan engagement.</p>
                 </div>
-                <div>
-                    <div class="flex justify-between mb-2">
-                        <span class="font-semibold text-white">Diseño Gráfico</span>
-                        <span class="text-teal-400 font-bold text-sm">88%</span>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Diseño Gráfico</span>
+                        <span class="text-teal-400 text-sm font-medium">Intermedio</span>
                     </div>
-                    <div class="h-2 bg-zinc-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-[var(--accent)] to-[var(--accent-2)]" style="width: 88%"></div>
+                    <p class="text-sm text-[var(--muted)]">Creo identidades visuales y materiales publicitarios con Photoshop e Illustrator, segmentando audiencias para optimizar la conversión en redes sociales.</p>
+                </div>
+                <div class="bg-zinc-800/50 rounded-lg p-4 border border-zinc-700">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-lg font-semibold text-white">Análisis de Datos / CRM</span>
+                        <span class="text-teal-400 text-sm font-medium">Básico-Intermedio</span>
                     </div>
-                    <p class="text-xs text-[var(--muted)] mt-1">Photoshop, Illustrator, logos, banners</p>
+                    <p class="text-sm text-[var(--muted)]">Analizo métricas de conversión y utilizo herramientas CRM para segmentar clientes y optimizar estrategias de fidelización.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal CV -->
+    <div id="cvModal" style="z-index: 9999 !important;">
+        <div class="cv-modal-content">
+            <button class="skills-modal-close" onclick="closeCVModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+                <i class="fas fa-file-pdf text-teal-400"></i> Currículum Vitae
+            </h2>
+            
+            <div class="space-y-6">
+                <!-- CV Developer -->
+                <div class="bg-zinc-800 rounded-lg p-6 border border-zinc-700">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-code text-teal-400"></i> CV Developer
+                    </h3>
+                    <p class="text-[var(--muted)] mb-4 text-sm">Currículum enfocado en desarrollo web y tecnologías frontend</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="./Multimedia/CV-Developer.pdf" target="_blank" download class="btn-primary font-bold py-2 px-6 rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 text-sm">
+                            <i class="fas fa-download"></i> Descargar
+                        </a>
+                        <a href="./Multimedia/CV-Developer.pdf" target="_blank" class="btn-outline font-bold py-2 px-6 rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 text-sm">
+                            <i class="fas fa-external-link-alt"></i> Ver en nueva pestaña
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- CV Marketing & Ventas -->
+                <div class="bg-zinc-800 rounded-lg p-6 border border-zinc-700">
+                    <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fas fa-chart-line text-teal-400"></i> CV Marketing & Ventas
+                    </h3>
+                    <p class="text-[var(--muted)] mb-4 text-sm">Currículum enfocado en marketing digital, ventas y contenido multimedia</p>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <a href="./Multimedia/CV-Marketing-Ventas.pdf" target="_blank" download class="btn-primary font-bold py-2 px-6 rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 text-sm">
+                            <i class="fas fa-download"></i> Descargar
+                        </a>
+                        <a href="./Multimedia/CV-Marketing-Ventas.pdf" target="_blank" class="btn-outline font-bold py-2 px-6 rounded-full transition-all duration-300 hover:scale-105 inline-flex items-center justify-center gap-2 text-sm">
+                            <i class="fas fa-external-link-alt"></i> Ver en nueva pestaña
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Información adicional -->
+                <div class="text-sm text-[var(--muted)] text-center pt-4 border-t border-zinc-700">
+                    <p>Selecciona el CV según el perfil que buscas. Ambos están disponibles para descarga o visualización.</p>
                 </div>
             </div>
         </div>
